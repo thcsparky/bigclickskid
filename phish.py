@@ -33,13 +33,15 @@ class tcpsocket(socketserver.BaseRequestHandler):
             a = open(os.getcwd() + '/netcatresponse.txt')
             b = a.read()
             a.close()
-            self.request.sendall(b) 
+            self.request.sendall(b.encode())
             #watch as packets come in:
             print('\n' + dat)
                 
   
         if dat.find('Discordbot') == -1:
-            responsepacket = 'c = b"HTTP/1.1 302 Found\nLocation: ' + tricksite
+            responsepacket = "HTTP/1.1 302 Found\nLocation: " + tricksite
+            respsend = responsepacket.encode()
+            self.request.sendall(respsend)
             print('\n' + dat)
             
 
